@@ -60,6 +60,29 @@ final class TextRenderer {
     func render(_ message: LoggerMessageEntity) {
         string.append(ConsoleFormatter.subheadline(for: message) + "\n", helper.attributes(role: .subheadline, style: .monospacedDigital, width: .condensed, color: .secondaryLabel))
         string.append(message.text + "\n", helper.attributes(role: .body2, color: textColor(for: message.logLevel)))
+        string.append("\n")
+
+        let location = ["location", message.file, String(message.line), message.function]
+        string.append(
+            location.joined(separator: ":"),
+            helper.attributes(role: .body2, color: textColor(for: message.logLevel))
+        )
+        string.append("\n")
+
+        if !message.metadata.isEmpty {
+            string.append(
+                "metadata: " 
+                + String(
+                    data: try! JSONSerialization.data(
+                        withJSONObject: message.metadata,
+                        options: .prettyPrinted
+                    ),
+                    encoding: .utf8
+                )!,
+                helper.attributes(role: .body2, color: textColor(for: message.logLevel))
+            )
+            string.append("\n")
+        }
     }
 
     func renderCompact(_ message: LoggerMessageEntity) {
