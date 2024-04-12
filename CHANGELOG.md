@@ -1,5 +1,18 @@
 # Pulse 4.x
 
+## Pulse 4.0.5
+
+*Nov 27, 2023*
+
+- Update documentation on custom views
+- Minor fixes and improvements in the UI
+
+## Pulse 4.0.4
+
+*Nov 5, 2023*
+
+- Fix [#217](https://github.com/kean/Pulse/issues/217): arithmetic overflow when the the number of deduplicated data links exceed the size limit 
+
 ## Pulse 4.0.3
 
 *Aug 27, 2023*
