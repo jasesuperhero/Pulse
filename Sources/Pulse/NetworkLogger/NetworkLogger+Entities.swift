@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 
@@ -514,7 +514,8 @@ extension NetworkLogger {
             self.rawValue = rawValue
         }
 
-        public static let any = ContentType(rawValue: "*/*")!
+        public static var any: ContentType { _any.value }
+        static let _any = Atomic(value: ContentType(rawValue: "*/*")!)
 
         public init(stringLiteral value: String) {
             self = ContentType(rawValue: value) ?? .any

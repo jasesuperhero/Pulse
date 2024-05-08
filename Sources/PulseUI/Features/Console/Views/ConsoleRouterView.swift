@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import CoreData
@@ -36,8 +36,8 @@ struct ConsoleRouterView: View {
     }
 }
 
-#if os(iOS)
-@available(iOS 15, *)
+#if os(iOS) || os(visionOS)
+@available(iOS 15, visionOS 1.0, *)
 extension ConsoleRouterView {
     var contents: some View {
         Text("").invisible()

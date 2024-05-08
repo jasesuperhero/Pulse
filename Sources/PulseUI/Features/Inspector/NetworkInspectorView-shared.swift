@@ -1,11 +1,11 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import Pulse
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 extension NetworkInspectorView {
     @ViewBuilder
     static func makeRequestSection(task: NetworkTaskEntity, isCurrentRequest: Bool) -> some View {

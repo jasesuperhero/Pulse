@@ -1,5 +1,24 @@
 # Pulse 4.x
 
+## Pulse 4.1.1
+
+*May 6, 2024*
+
+- Fix https://github.com/kean/Pulse/issues/246 – an issue with concurrent initialization of `LoggerStore` from multiple threads (workaround: initialize it in app delegate before other code runs)
+- Add `@MainActor` attribute to `RemoteLogger`  
+- Address Swift 6 warnings
+
+## Pulse 4.1.0
+
+*May 5, 2024*
+
+- Add initial visionOS support by @maximality in https://github.com/kean/Pulse/pull/239
+- Add privacy manifests by @samlapse in https://github.com/kean/Pulse/pull/252
+- Add an option to use in-memory CoreData for logs by @z-turk3 in https://github.com/kean/Pulse/pull/247
+- Add initial support for exporting logs as HAR file by @jjotaum in https://github.com/kean/Pulse/pull/236
+- Fix an issue with the "Unsupported OS version" copy by @Mcrich23 in https://github.com/kean/Pulse/pull/240
+- Fix https://github.com/kean/Pulse/issues/114: an issue with text writing direction to handle RTL languages by @Mr-Alirezaa in https://github.com/kean/Pulse/pull/233
+
 ## Pulse 4.0.5
 
 *Nov 27, 2023*

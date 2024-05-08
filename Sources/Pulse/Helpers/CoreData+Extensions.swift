@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import CoreData
 
@@ -59,8 +59,6 @@ extension NSPersistentContainer {
         if let error = loadError {
             throw error
         }
-        viewContext.automaticallyMergesChangesFromParent = true
-        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
 }
 

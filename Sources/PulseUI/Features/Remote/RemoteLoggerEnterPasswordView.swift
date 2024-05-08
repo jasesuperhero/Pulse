@@ -1,13 +1,13 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import Network
 import Pulse
 import Combine
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct RemoteLoggerEnterPasswordView: View {
     @ObservedObject var viewModel: RemoteLoggerSettingsViewModel
     @ObservedObject var logger: RemoteLogger = .shared
@@ -34,7 +34,7 @@ struct RemoteLoggerEnterPasswordView: View {
             })
         }
         .inlineNavigationTitle("Enter Password")
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel", role: .cancel) {

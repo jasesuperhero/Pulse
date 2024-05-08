@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import CoreData
 import Pulse
@@ -102,7 +102,7 @@ final class ConsoleEnvironment: ObservableObject {
         store.removeAll()
         index.clear()
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         runHapticFeedback(.success)
 #endif
     }

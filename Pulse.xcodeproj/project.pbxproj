@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,6 +40,7 @@
 		0C11EAE22971EBEA0059786A /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF0D5B0296F189500EED9D4 /* MockStore.swift */; };
 		0C11EAE72971EBED0059786A /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF0D5B0296F189500EED9D4 /* MockStore.swift */; };
 		0C11EAE92971EBEE0059786A /* MockTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF0D5AF296F189500EED9D4 /* MockTask.swift */; };
+		0C1D52412BE99169006A0EB7 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1D52402BE99169006A0EB7 /* Atomic.swift */; };
 		0C20F3E42A2CE9D900F2F67D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C20F3E32A2CE9D900F2F67D /* Keychain.swift */; };
 		0C2343152978B6B900AE7CE6 /* ConsoleSearchSuggestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2343142978B6B900AE7CE6 /* ConsoleSearchSuggestionsService.swift */; };
 		0C2720892AF832C6005DDB1C /* StatusLabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2720882AF832C6005DDB1C /* StatusLabelViewModel.swift */; };
@@ -87,10 +88,10 @@
 		0C70EA812A3F6190000B1071 /* repos.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CDACDE129EC6607007C15CD /* repos.json */; };
 		0C70EA822A3F619A000B1071 /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF0D5B0296F189500EED9D4 /* MockStore.swift */; };
 		0C70EA832A3F619A000B1071 /* MockTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF0D5AF296F189500EED9D4 /* MockTask.swift */; };
-		0C70EA842A3F61F9000B1071 /* Pulse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D542296F14EA00EED9D4 /* Pulse.framework */; };
-		0C70EA852A3F61F9000B1071 /* Pulse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D542296F14EA00EED9D4 /* Pulse.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0C70EA882A3F61F9000B1071 /* PulseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D56C296F17CB00EED9D4 /* PulseUI.framework */; };
-		0C70EA892A3F61F9000B1071 /* PulseUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D56C296F17CB00EED9D4 /* PulseUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0C70EA842A3F61F9000B1071 /* Pulse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D542296F14EA00EED9D4 /* Pulse.framework */; platformFilters = (ios, tvos, watchos, xros, ); };
+		0C70EA852A3F61F9000B1071 /* Pulse.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D542296F14EA00EED9D4 /* Pulse.framework */; platformFilters = (ios, tvos, watchos, xros, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0C70EA882A3F61F9000B1071 /* PulseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D56C296F17CB00EED9D4 /* PulseUI.framework */; platformFilters = (ios, tvos, watchos, xros, ); };
+		0C70EA892A3F61F9000B1071 /* PulseUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF0D56C296F17CB00EED9D4 /* PulseUI.framework */; platformFilters = (ios, tvos, watchos, xros, ); settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C7A0DFB297C33F300B4B69D /* ConsoleRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A0DFA297C33F300B4B69D /* ConsoleRouterView.swift */; };
 		0C7A0E00297C51CE00B4B69D /* ConsoleListOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A0DFF297C51CE00B4B69D /* ConsoleListOptions.swift */; };
 		0C7A0E02297CE71400B4B69D /* FormattersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7A0E01297CE71400B4B69D /* FormattersTests.swift */; };
@@ -271,6 +272,8 @@
 		0CFF79DD29EB7A8E00BE767B /* SessionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF79DB29EB7A8B00BE767B /* SessionListView.swift */; };
 		0CFF79DF29EB7B4300BE767B /* SessionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF79DE29EB7B4300BE767B /* SessionPickerView.swift */; };
 		0CFF79E229EC1FA200BE767B /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF79E029EC1F7800BE767B /* ImageProcessor.swift */; };
+		25E740012BE0FA58008C6DC3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25E740002BE0FA58008C6DC3 /* PrivacyInfo.xcprivacy */; };
+		25E740072BE10B4C008C6DC3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 25E740062BE10B4C008C6DC3 /* PrivacyInfo.xcprivacy */; };
 		E95D6C562B7314E6004D28E4 /* HARDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D6C552B7314E6004D28E4 /* HARDocument.swift */; };
 /* End PBXBuildFile section */
 
@@ -506,6 +509,7 @@
 		0C11EAC12971E9B30059786A /* PulsePerformanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulsePerformanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C11EACB2971E9CE0059786A /* TextRendererPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRendererPerformanceTests.swift; sourceTree = "<group>"; };
 		0C1221E525CE09C100B81D7A /* URLSessionAutomatedIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionAutomatedIntegration.swift; sourceTree = "<group>"; };
+		0C1D52402BE99169006A0EB7 /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		0C20F3E32A2CE9D900F2F67D /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		0C2343142978B6B900AE7CE6 /* ConsoleSearchSuggestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSearchSuggestionsService.swift; sourceTree = "<group>"; };
 		0C25FB6E25CDDCAB00A895C2 /* URLSessionManualIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionManualIntegration.swift; sourceTree = "<group>"; };
@@ -726,6 +730,9 @@
 		0CFF79DB29EB7A8B00BE767B /* SessionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListView.swift; sourceTree = "<group>"; };
 		0CFF79DE29EB7B4300BE767B /* SessionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPickerView.swift; sourceTree = "<group>"; };
 		0CFF79E029EC1F7800BE767B /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		25E740002BE0FA58008C6DC3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		25E740052BE10AC7008C6DC3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		25E740062BE10B4C008C6DC3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		49E82A8526D107A00070244F /* AlamofireIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireIntegration.swift; sourceTree = "<group>"; };
 		49E82A8826D1083D0070244F /* MoyaIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaIntegration.swift; sourceTree = "<group>"; };
 		E95D6C552B7314E6004D28E4 /* HARDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HARDocument.swift; sourceTree = "<group>"; };
@@ -1093,6 +1100,7 @@
 				0CF0D49A296F14CF00EED9D4 /* LoggerStore */,
 				0CF0D4A3296F14CF00EED9D4 /* Helpers */,
 				0CF0D493296F14CF00EED9D4 /* Pulse.docc */,
+				25E740002BE0FA58008C6DC3 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Pulse;
 			sourceTree = "<group>";
@@ -1147,6 +1155,7 @@
 				0CF0D4A7296F14CF00EED9D4 /* PulseDocument.swift */,
 				0CF0D4A9296F14CF00EED9D4 /* Regex.swift */,
 				0C20F3E32A2CE9D900F2F67D /* Keychain.swift */,
+				0C1D52402BE99169006A0EB7 /* Atomic.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1160,6 +1169,7 @@
 				0CF0D58D296F189500EED9D4 /* Extensions */,
 				0CF0D594296F189500EED9D4 /* Views */,
 				0CF0D60D296F189600EED9D4 /* PulseUI.docc */,
+				25E740062BE10B4C008C6DC3 /* PrivacyInfo.xcprivacy */,
 			);
 			path = PulseUI;
 			sourceTree = "<group>";
@@ -1207,6 +1217,7 @@
 		0CF0D594296F189500EED9D4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25E740052BE10AC7008C6DC3 /* PrivacyInfo.xcprivacy */,
 				0CF0D59F296F189500EED9D4 /* RichTextView */,
 				0CF0D595296F189500EED9D4 /* SearchBar-macos.swift */,
 				0CF0D597296F189500EED9D4 /* PlaceholderView.swift */,
@@ -1837,6 +1848,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25E740012BE0FA58008C6DC3 /* PrivacyInfo.xcprivacy in Resources */,
 				0CDACDE229EC6607007C15CD /* repos.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1845,6 +1857,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25E740072BE10B4C008C6DC3 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1955,6 +1968,7 @@
 				0CF0D54F296F15F200EED9D4 /* NetworkLogger+Redacting.swift in Sources */,
 				0CF0D55C296F15FA00EED9D4 /* LoggerStore+Info.swift in Sources */,
 				0CF0D560296F15FA00EED9D4 /* LoggerStore+Configuration.swift in Sources */,
+				0C1D52412BE99169006A0EB7 /* Atomic.swift in Sources */,
 				0CF0D561296F15FD00EED9D4 /* LoggerSession.swift in Sources */,
 				0CF0D558296F15F600EED9D4 /* RemoteLogger-Protocol.swift in Sources */,
 				0C20F3E42A2CE9D900F2F67D /* Keychain.swift in Sources */,
@@ -2206,11 +2220,23 @@
 		};
 		0C70EA872A3F61F9000B1071 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+				tvos,
+				watchos,
+				xros,
+			);
 			target = 0CF0D541296F14EA00EED9D4 /* Pulse */;
 			targetProxy = 0C70EA862A3F61F9000B1071 /* PBXContainerItemProxy */;
 		};
 		0C70EA8B2A3F61F9000B1071 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+				tvos,
+				watchos,
+				xros,
+			);
 			target = 0CF0D56B296F17CB00EED9D4 /* PulseUI */;
 			targetProxy = 0C70EA8A2A3F61F9000B1071 /* PBXContainerItemProxy */;
 		};
@@ -2616,7 +2642,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 4.0.5;
+				MARKETING_VERSION = 4.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos appletvsimulator appletvos";
@@ -2667,7 +2693,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 4.0.5;
+				MARKETING_VERSION = 4.1.1;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
@@ -2764,12 +2790,12 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.kean.pulse-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
 		};
@@ -2808,13 +2834,13 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.kean.pulse-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator watchos watchsimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PULSE_MOCK_INCLUDED;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Release;
 		};
@@ -2941,8 +2967,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2975,7 +3004,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3008,9 +3040,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -3042,8 +3077,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 7;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

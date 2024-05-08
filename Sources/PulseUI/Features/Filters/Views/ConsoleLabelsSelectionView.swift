@@ -1,12 +1,12 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import Pulse
 import Combine
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct ConsoleLabelsSelectionView: View {
     @ObservedObject var viewModel: ConsoleFiltersViewModel
     @EnvironmentObject private var index: LoggerStoreIndex

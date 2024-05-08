@@ -1,16 +1,16 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 
 import SwiftUI
 import Pulse
 import CoreData
 import Combine
 
-#if os(iOS)
-@available(iOS 15, *)
+#if os(iOS) || os(visionOS)
+@available(iOS 15, visionOS 1.0, *)
 struct ConsoleToolbarView: View {
     @EnvironmentObject private var environment: ConsoleEnvironment
 
@@ -177,7 +177,7 @@ private struct ConsoleModeButton: View {
 #endif
 }
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct ConsoleListOptionsView: View {
     @EnvironmentObject private var filters: ConsoleFiltersViewModel
 

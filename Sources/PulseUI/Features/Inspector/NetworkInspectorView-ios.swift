@@ -1,15 +1,15 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 
 import SwiftUI
 import CoreData
 import Pulse
 import Combine
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct NetworkInspectorView: View {
     @ObservedObject var task: NetworkTaskEntity
 
@@ -95,7 +95,7 @@ struct NetworkInspectorView: View {
 }
 
 #if DEBUG
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct NetworkInspectorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

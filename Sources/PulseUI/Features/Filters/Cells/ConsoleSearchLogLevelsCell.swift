@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import Pulse
@@ -62,7 +62,7 @@ struct ConsoleSearchLogLevelsCell: View {
             ForEach(LoggerStore.Level.allCases, id: \.self) { level in
                 HStack {
                     Checkbox(level.name.capitalized, isOn: binding(forLevel: level))
-#if os(iOS)
+#if os(iOS) || os(visionOS)
                     Circle()
                         .frame(width: 8, height: 8)
                         .foregroundColor(Color.textColor(for: level))

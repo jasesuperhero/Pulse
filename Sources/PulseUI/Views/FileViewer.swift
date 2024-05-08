@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import Pulse
@@ -8,7 +8,7 @@ import Pulse
 struct FileViewer: View {
     @ObservedObject var viewModel: FileViewerViewModel
 
-#if os(iOS) || os(watchOS) || os(macOS)
+#if os(iOS) || os(watchOS) || os(macOS) || os(visionOS)
     var body: some View {
         contents
     }
@@ -28,7 +28,7 @@ struct FileViewer: View {
             ScrollView {
                 ImageViewer(viewModel: viewModel)
             }
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
         case .pdf(let document):
             PDFKitRepresentedView(document: document)
                 .edgesIgnoringSafeArea(.all)
@@ -75,7 +75,7 @@ private struct PreviewContainer<Content: View>: View {
     @ViewBuilder var contents: () -> Content
 
     var body: some View {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         NavigationView {
             contents()
         }

@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 import SwiftUI
@@ -107,7 +107,7 @@ final class TextHelper {
     }
 
     private func scaled(font: UXFont) -> UXFont {
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
         return UIFontMetrics.default.scaledFont(for: font)
 #else
         return font

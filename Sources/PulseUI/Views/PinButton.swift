@@ -1,14 +1,14 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import SwiftUI
 import CoreData
 import Pulse
 import Combine
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 
 struct PinButton: View {
     @ObservedObject var viewModel: PinButtonViewModel

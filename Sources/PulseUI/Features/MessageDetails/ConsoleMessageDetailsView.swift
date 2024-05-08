@@ -1,17 +1,17 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 #if !PULSE_STANDALONE_APP
 
 import SwiftUI
 import Pulse
 
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct ConsoleMessageDetailsView: View {
     let message: LoggerMessageEntity
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
     var body: some View {
         contents
             .navigationBarTitle("", displayMode: .inline)
@@ -99,7 +99,7 @@ struct ConsoleMessageDetailsView: View {
 }
 
 #if DEBUG
-@available(iOS 15, *)
+@available(iOS 15, visionOS 1.0, *)
 struct ConsoleMessageDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

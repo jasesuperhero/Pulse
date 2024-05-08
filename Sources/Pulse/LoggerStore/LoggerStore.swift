@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
 import Foundation
 import CoreData
@@ -73,9 +73,15 @@ public final class LoggerStore: @unchecked Sendable, Identifiable {
     /// You can replace the default store with a custom one. If you replace the
     /// shared store, it automatically gets registered as the default store
     /// for ``RemoteLogger``.
-    public static var shared = LoggerStore.makeDefault() {
-        didSet { register(store: shared) }
+    public static var shared: LoggerStore {
+        get { _shared.value }
+        set {
+            _shared.value = newValue
+            register(store: newValue)
+        }
     }
+
+    private static let _shared = Atomic(value: LoggerStore.makeDefault())
 
     private static func register(store: LoggerStore) {
         guard Thread.isMainThread else {
@@ -167,7 +173,7 @@ public final class LoggerStore: @unchecked Sendable, Identifiable {
             self.manifest = .init(storeId: info.storeId, version: try Version(string: info.storeVersion))
         }
 
-        self.container = LoggerStore.makeContainer(databaseURL: databaseURL)
+        self.container = LoggerStore.makeContainer(databaseURL: databaseURL, options: options)
         try container.loadStore()
         self.backgroundContext = container.newBackgroundContext()
 
@@ -186,28 +192,19 @@ public final class LoggerStore: @unchecked Sendable, Identifiable {
             context.userInfo[WeakLoggerStore.loggerStoreKey] = WeakLoggerStore(store: self)
         }
 
+        var createSession = false
         if options.contains(.create) && !options.contains(.readonly) && configuration.isAutoStartingSession {
             perform { _ in
                 self.saveEntity(for: self.session, info: .make())
             }
-        } else {
-            viewContext.performAndWait {
-                let latestSession = try? self.viewContext.first(LoggerSessionEntity.self) {
-                    $0.sortDescriptors = [NSSortDescriptor(keyPath: \LoggerSessionEntity.createdAt, ascending: false)]
-                }
-                if let session = latestSession, manifest.version > Version(3, 3, 0) {
-                    self.session = .init(id: session.id, startDate: session.createdAt)
-                }
-            }
+            createSession = true
         }
 
         if Thread.isMainThread {
-            self.viewContext.userInfo[Pins.pinServiceKey] = Pins(store: self)
-            self.viewContext.userInfo[WeakLoggerStore.loggerStoreKey] = WeakLoggerStore(store: self)
+            initializeViewContext(createSession: createSession)
         } else {
-            viewContext.performAndWait {
-                self.viewContext.userInfo[Pins.pinServiceKey] = Pins(store: self)
-                self.viewContext.userInfo[WeakLoggerStore.loggerStoreKey] = WeakLoggerStore(store: self)
+            viewContext.perform {
+                self.initializeViewContext(createSession: createSession)
             }
         }
 
@@ -217,6 +214,23 @@ public final class LoggerStore: @unchecked Sendable, Identifiable {
                 DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(10)) { [weak self] in
                     self?.sweep()
                 }
+            }
+        }
+    }
+
+    /// - warning: Make sure it doesn't block the main thread
+    private func initializeViewContext(createSession: Bool) {
+        viewContext.automaticallyMergesChangesFromParent = true
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        viewContext.userInfo[Pins.pinServiceKey] = Pins(store: self)
+        viewContext.userInfo[WeakLoggerStore.loggerStoreKey] = WeakLoggerStore(store: self)
+
+        if createSession {
+            let latestSession = try? viewContext.first(LoggerSessionEntity.self) {
+                $0.sortDescriptors = [NSSortDescriptor(keyPath: \LoggerSessionEntity.createdAt, ascending: false)]
+            }
+            if let session = latestSession, manifest.version > Version(3, 3, 0) {
+                self.session = .init(id: session.id, startDate: session.createdAt)
             }
         }
     }
@@ -245,10 +259,11 @@ public final class LoggerStore: @unchecked Sendable, Identifiable {
         self.configuration = .init()
     }
 
-    private static func makeContainer(databaseURL: URL) -> NSPersistentContainer {
+    private static func makeContainer(databaseURL: URL, options: Options) -> NSPersistentContainer {
         let container = NSPersistentContainer(name: databaseURL.lastPathComponent, managedObjectModel: Self.model)
         let store = NSPersistentStoreDescription(url: databaseURL)
         store.setValue("DELETE" as NSString, forPragmaNamed: "journal_mode")
+        store.type = options.contains(.inMemory) ? NSInMemoryStoreType : NSSQLiteStoreType
         container.persistentStoreDescriptions = [store]
         return container
     }
@@ -815,7 +830,7 @@ extension LoggerStore {
 // MARK: - LoggerStore (Export)
 
 extension LoggerStore {
-    public enum DocumentType {
+    public enum DocumentType: Sendable {
         /// A package (directory) with a Pulse database (optimized for writing)
         case package
         /// A document (readonly, archive, optimized to storage and sharing)
@@ -823,7 +838,7 @@ extension LoggerStore {
     }
 
     /// Store export options.
-    public struct ExportOptions {
+    public struct ExportOptions: @unchecked Sendable {
         /// A predicate describing which messages (``LoggerMessageEntity``) to export.
         public var predicate: NSPredicate?
         /// A list of sessions to export.

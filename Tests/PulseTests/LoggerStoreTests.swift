@@ -25,6 +25,21 @@ final class LoggerStoreTests: LoggerStoreBaseTests {
         XCTAssertThrowsError(try LoggerStore(storeURL: storeURL))
     }
 
+    // Run this N times.
+    func testConcurrentStoreInit() throws {
+        let expectation = self.expectation(description: "init")
+        expectation.expectedFulfillmentCount = 2
+        DispatchQueue.main.async {
+            let _ = LoggerStore.shared
+            expectation.fulfill()
+        }
+        DispatchQueue.global().async {
+            let _ = LoggerStore.shared
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 2.0)
+    }
+
     func testInitCreateStoreURL() throws {
         // GIVEN
         let storeURL = directory.url.appending(filename: UUID().uuidString)
@@ -42,6 +57,23 @@ final class LoggerStoreTests: LoggerStoreBaseTests {
         // CLEANUP
         try? firstStore.destroy()
         try? secondStore.destroy()
+    }
+
+    func testInitCreateInMemoryStore() throws {
+        // GIVEN
+        let storeURL = directory.url.appending(filename: UUID().uuidString)
+        let options: LoggerStore.Options = [.create, .synchronous, .inMemory]
+
+        // WHEN
+        let store = try LoggerStore(storeURL: storeURL, options: options)
+        populate(store: store)
+
+        // THEN data is NOT persisted
+        let databaseURL = storeURL.appending(filename: "logs.sqlite")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: databaseURL.path))
+
+        // CLEANUP
+        try? store.destroy()
     }
 
     func testInitCreateStoreIntermediateDirectoryMissing() throws {
@@ -635,7 +667,7 @@ final class LoggerStoreTests: LoggerStoreBaseTests {
 
     // MARK: - Image Support
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
     func testImageThumbnailsAreStored() throws {
         // GIVEN
         let image = try makeMockImage()

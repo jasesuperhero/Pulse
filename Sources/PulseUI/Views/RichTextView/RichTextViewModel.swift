@@ -1,8 +1,8 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2020–2023 Alexander Grebenyuk (github.com/kean).
+// Copyright (c) 2020-2024 Alexander Grebenyuk (github.com/kean).
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 
 import SwiftUI
 import Pulse
@@ -69,7 +69,7 @@ final class RichTextViewModel: ObservableObject {
         didUpdateMatches(matches, string: textStorage)
         if context.matchIndex < matches.count {
             DispatchQueue.main.async {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
                 self.textView?.layoutManager.allowsNonContiguousLayout = false // Remove this workaround
                 UIView.performWithoutAnimation {
                     self.updateMatchIndex(context.matchIndex)
