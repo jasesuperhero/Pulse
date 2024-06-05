@@ -19,11 +19,11 @@ public enum ShareStoreOutput: String, RawRepresentable {
     }
 }
 
-struct ShareItems: Identifiable {
-    let id = UUID()
-    let items: [Any]
-    let size: Int64?
-    let cleanup: () -> Void
+public struct ShareItems: Identifiable {
+    public let id = UUID()
+    public let items: [Any]
+    public let size: Int64?
+    public let cleanup: () -> Void
 
     init(_ items: [Any], size: Int64? = nil, cleanup: @escaping () -> Void = { }) {
         self.items = items
@@ -32,10 +32,71 @@ struct ShareItems: Identifiable {
     }
 }
 
-enum ShareService {
+public enum ShareService {
     private static var task: ShareStoreTask?
 
-    static func share(_ entities: [NSManagedObject], store: LoggerStore, as output: ShareOutput) async throws -> ShareItems {
+    public static func prepareForSharing(
+        store: LoggerStore,
+        output: ShareStoreOutput,
+        options: LoggerStore.ExportOptions
+    ) async throws -> ShareItems {
+        switch output {
+        case .store:
+            return try await prepareStoreForSharing(
+                store: store,
+                as: .archive,
+                output: output,
+                options: options
+            )
+        case .package:
+            return try await prepareStoreForSharing(
+                store: store,
+                as: .package,
+                output: output,
+                options: options
+            )
+        case .text, .html:
+            let output: ShareOutput = output == .text ? .plainText : .html
+            return try await _prepareForSharing(store: store, output: output, options: options)
+        case .har:
+            return try await _prepareForSharing(store: store, output: .har, options: options)
+        }
+    }
+
+    private static func prepareStoreForSharing(
+        store: LoggerStore,
+        as docType: LoggerStore.DocumentType,
+        output: ShareStoreOutput,
+        options: LoggerStore.ExportOptions
+    ) async throws -> ShareItems {
+        let directory = TemporaryDirectory()
+
+        let logsURL = directory.url.appendingPathComponent("logs-\(makeCurrentDate()).\(output.fileExtension)")
+        try await store.export(to: logsURL, as: docType, options: options)
+        return ShareItems([logsURL], cleanup: directory.remove)
+    }
+
+    private static func _prepareForSharing(
+        store: LoggerStore,
+        output: ShareOutput,
+        options: LoggerStore.ExportOptions
+    ) async throws -> ShareItems {
+        let entities = try await withUnsafeThrowingContinuation { continuation in
+            store.backgroundContext.perform {
+                let request = NSFetchRequest<LoggerMessageEntity>(entityName: "\(LoggerMessageEntity.self)")
+                request.predicate = options.predicate // important: contains sessions
+                let result = Result(catching: { try store.backgroundContext.fetch(request) })
+                continuation.resume(with: result)
+            }
+        }
+        return try await share(entities, store: store, as: output)
+    }
+
+    public static func share(
+        _ entities: [NSManagedObject],
+        store: LoggerStore,
+        as output: ShareOutput
+    ) async throws -> ShareItems {
         try await withUnsafeThrowingContinuation { continuation in
             ShareStoreTask(entities: entities, store: store, output: output) {
                 if let value = $0 {
@@ -112,7 +173,7 @@ enum ShareService {
     }
 }
 
-enum ShareOutput {
+public enum ShareOutput {
     case plainText
     case html
     case pdf

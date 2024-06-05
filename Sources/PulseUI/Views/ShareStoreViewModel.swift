@@ -46,7 +46,11 @@ import Combine
         Task {
             do {
                 let options = LoggerStore.ExportOptions(predicate: predicate, sessions: sessions)
-                self.shareItems = try await prepareForSharing(store: store, options: options)
+                self.shareItems = try await ShareService.prepareForSharing(
+                    store: store,
+                    output: output,
+                    options: options
+                )
             } catch {
                 guard !(error is CancellationError) else { return }
                 self.errorMessage = error.localizedDescription
@@ -80,40 +84,6 @@ import Combine
             predicates.append(.init(format: "session IN %@", sessions))
         }
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-    }
-
-    private func prepareForSharing(store: LoggerStore, options: LoggerStore.ExportOptions) async throws -> ShareItems {
-        switch output {
-        case .store:
-            return try await prepareStoreForSharing(store: store, as: .archive, options: options)
-        case .package:
-            return try await prepareStoreForSharing(store: store, as: .package, options: options)
-        case .text, .html:
-            let output: ShareOutput = output == .text ? .plainText : .html
-            return try await prepareForSharing(store: store, output: output, options: options)
-        case .har:
-            return try await prepareForSharing(store: store, output: .har, options: options)
-        }
-    }
-
-    private func prepareStoreForSharing(store: LoggerStore, as docType: LoggerStore.DocumentType, options: LoggerStore.ExportOptions) async throws -> ShareItems {
-        let directory = TemporaryDirectory()
-
-        let logsURL = directory.url.appendingPathComponent("logs-\(makeCurrentDate()).\(output.fileExtension)")
-        try await store.export(to: logsURL, as: docType, options: options)
-        return ShareItems([logsURL], cleanup: directory.remove)
-    }
-
-    private func prepareForSharing(store: LoggerStore, output: ShareOutput, options: LoggerStore.ExportOptions) async throws -> ShareItems {
-        let entities = try await withUnsafeThrowingContinuation { continuation in
-            store.backgroundContext.perform {
-                let request = NSFetchRequest<LoggerMessageEntity>(entityName: "\(LoggerMessageEntity.self)")
-                request.predicate = options.predicate // important: contains sessions
-                let result = Result(catching: { try store.backgroundContext.fetch(request) })
-                continuation.resume(with: result)
-            }
-        }
-        return try await ShareService.share(entities, store: store, as: output)
     }
 }
 
